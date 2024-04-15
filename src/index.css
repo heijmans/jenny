@@ -1,0 +1,161 @@
+:root {
+  font-family: Avenir, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+a {
+  color: #08f;
+  cursor: pointer;
+  text-decoration: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+}
+
+pre {
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.nowrap {
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+hr {
+  background-color: gray;
+  border: none;
+  height: 1px;
+}
+
+summary {
+  color: #08f;
+  cursor: pointer;
+}
+
+summary:hover {
+  text-decoration: underline;
+}
+
+.active-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.active-table td {
+  padding: 0.4rem 0.2rem;
+}
+
+.info {
+  font-weight: normal;
+  font-size: 0.8rem;
+}
+
+.info td {
+  padding-top: 0;
+}
+
+.active-row:hover {
+  background-color: #cef;
+  cursor: pointer;
+}
+
+.selected-row {
+  background: #8cf
+}
+
+.job-color-red {
+  background-color: #fcc;
+}
+
+.job-color-yellow {
+  background-color: #ff8;
+}
+
+.job-color-blue {
+  background-color: #cfc;
+  /* green :-) */
+}
+
+.status-ABORTED {
+  background-color: black;
+  color: white;
+}
+
+.status-FAILED {
+  background-color: #fcc;
+}
+
+.status-IN_PROGRESS {
+  background: repeating-linear-gradient(90deg, #ccc, #ccc 5px, #FFF 5px, #FFF 10px);
+}
+
+.status-NOT_EXECUTED {
+  color: #888;
+}
+
+.status-SUCCESS {
+  background-color: #cfc;
+}
+
+.status-UNSTABLE {
+  background-color: #ff8;
+}
+
+.split {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.split * {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.split112 :nth-child(3) {
+  flex-grow: 2;
+}
+
+.run-table {
+  table-layout: fixed;
+  max-width: 90vw;
+}
+
+.stage {
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+  min-width: 0.1rem;
+  min-height: 1.3rem;
+  overflow: hidden;
+  padding: 0.25rem 0.5rem;
+  text-overflow: ellipsis;
+  white-space: pre;
+}
+
+.updated-at {
+  margin: -1rem 0 1rem 0;
+  font-size: 0.8rem;
+}
+
+.jenkins-icon {
+  padding: 3px 5px;
+}
+
+.jenkins-icon img {
+  position: relative;
+  top: 2px;
+}
+
+.jenkins-icon:hover {
+  background: #cef;
+}
