@@ -105,7 +105,7 @@ function RunView({ jobSpec, run, errorIdx }: { jobSpec: JobSpec, run: Run, error
 
   const selError = errorIdx !== undefined ? errors[errorIdx] : undefined;
 
-  const consoleUrl = `${JENKINS_SERVER}${jobBEUrl(jobSpec)}/${run.id}/consoleText`;
+  const consoleUrl = `${JENKINS_SERVER}${jobJenkinsUrl(jobSpec)}/${run.id}/consoleText`;
 
   return <>
     <div>
