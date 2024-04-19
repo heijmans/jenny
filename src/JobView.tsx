@@ -93,7 +93,7 @@ function RunView({ jobSpec, run, errorIdx }: { jobSpec: JobSpec, run: Run, error
     let res: TestCase[] = [];
     if (report) {
       res = report.suites.flatMap(suite => {
-        return suite.cases.filter(x => x.status === 'FAILED').map(tcase => {
+        return suite.cases.filter(x => x.status !== 'PASSED' && x.status !== 'SKIPPED').map(tcase => {
           return ({ ...tcase, suiteName: suite.name });
         });
       });
