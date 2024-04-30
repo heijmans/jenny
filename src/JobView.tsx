@@ -65,7 +65,9 @@ function ErrorView({ artifactPrefix, runMeta, error }: { artifactPrefix: string,
     <div style={{ fontSize: "1.2rem" }}>{error.name}</div>
     <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>{error.suiteName}</div>
     <p>
-      {artifactSrc && <img src={artifactSrc} alt='screenshot' height={400} />}
+      {artifactSrc && <a href={artifactSrc} target="_blank">
+        <img src={artifactSrc} alt='screenshot' height={400} />
+      </a>}
     </p>
     <pre>
       {error.errorDetails || ""}
@@ -93,7 +95,7 @@ function RunView({ jobSpec, run, errorIdx }: { jobSpec: JobSpec, run: Run, error
     let res: TestCase[] = [];
     if (report) {
       res = report.suites.flatMap(suite => {
-        return suite.cases.filter(x => x.status !== 'PASSED' && x.status !== 'SKIPPED').map(tcase => {
+        return suite.cases.filter(x => x.status !== 'PASSED' && x.status !== 'SKIPPED' && x.status !== 'FIXED').map(tcase => {
           return ({ ...tcase, suiteName: suite.name });
         });
       });
@@ -121,11 +123,11 @@ function RunView({ jobSpec, run, errorIdx }: { jobSpec: JobSpec, run: Run, error
       }
       {errors.map((error, i) =>
         <div
-          key={error.name}
+          key={i}
           className={classNames({ "active-row": true, "selected-row": i === errorIdx })}
           onClick={() => showError(i)}
         >
-          <div style={{ fontSize: "1.2rem" }}>{error.name}</div>
+          <div style={{ fontSize: "1.2rem" }} title={`${error.name} (${error.status})`}>{error.name}</div>
           <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>{error.suiteName}</div>
         </div>
       )}
@@ -147,7 +149,7 @@ function StageView({ stage }: { stage: Stage }): ReactNode {
   let status = stage.durationMillis <= 0 ? 'IN_PROGRESS' : stage.status;
   const durationMillis = stage.durationMillis <= 0 ? Date.now() - stage.startTimeMillis : stage.durationMillis;
   const duration = Math.round(durationMillis / 1000);
-  return <td key={stage.id}>
+  return <td>
     <div className={`stage status-${status}`} title={`${stage.name} (${status}) @ ${timeFormSecs.format(start)}, ${formatDuration(duration)}`}>
       <span className='stage-name'>{stage.name}</span>
     </div>
@@ -169,7 +171,7 @@ function RunTable({ jobSpec, runs, runId }: { jobSpec: JobSpec, runs: Run[], run
       >
         <tr>
           <td className={`nowrap status-${run.status}`} title={run.id}>{run.id}</td>
-          {run.stages.map((stage) => <StageView stage={stage} />)}
+          {run.stages.map((stage) => <StageView key={stage.id} stage={stage} />)}
         </tr>
         <tr className="info">
           <td className={`nowrap status-${run.status}`} title={run.status}>{run.status}</td>

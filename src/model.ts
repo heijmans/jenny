@@ -40,7 +40,7 @@ export interface TestCase {
   errorDetails?: string;
   errorStackTrace?: string;
   failedSince: number;
-  status: 'PASSED' | 'SKIPPED' | 'FAILED';
+  status: 'PASSED' | 'SKIPPED' | 'FAILED' | 'FIXED';
   stderr?: string;
   stdout?: string;
   suiteName?: string; // generated
