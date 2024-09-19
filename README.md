@@ -21,6 +21,23 @@ You need to replace all values with the right values for your Jenkins server and
 }
 ```
 
+Use a client certificate in settings.json:
+
+```json
+{
+  "server": "https://buildserver.example.com/jenkins",
+  "target": {
+    "protocol": "https:",
+    "host": "buildserver.example.com",
+    "path": "/jenkins",
+    "key": "/home/user/.certs/client.key.perm",
+    "cert": "/home/user/.certs/client.cert.perm"
+  },
+  "username": "janh",
+  "apitoken": "********"
+}
+```
+
 ### Install dependencies and start the dev server
 
 ```sh
