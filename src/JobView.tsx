@@ -51,12 +51,28 @@ export function jobJenkinsUrl({ orgName, repoName, jobName }: JobSpec): string {
 
 function ErrorView({ artifactPrefix, runMeta, error }: { artifactPrefix: string, runMeta: RunMeta, error: TestCase }): ReactNode {
   let artifactSrc = "";
-  (error.stdout || "").replace(/Screenshot captured as '([^']*)'/, (_, capt1: string) => {
+
+  function findArtifact(suffix: string): void {
+    const artifact = runMeta.artifacts.find(x => x.relativePath.endsWith(suffix));
+    if (artifact) {
+      artifactSrc = artifactPrefix + artifact?.relativePath;
+    }
+  }
+
+  const errorDetails = error.errorDetails || "";
+  const errorStackTrace = error.errorStackTrace || "";
+  const stderr = error.stderr || ""
+  const stdout = error.stdout || "";
+
+  errorStackTrace.replace(/screenshot \(image\/\w+\)\s*\u2500+\s*(\S.*)\n/, (_, capt1) => {
     if (capt1.length > 8) {
-      const artifact = runMeta.artifacts.find(x => x.relativePath.endsWith(capt1));
-      if (artifact) {
-        artifactSrc = artifactPrefix + artifact?.relativePath;
-      }
+      findArtifact(capt1);
+    }
+    return '';
+  });
+  stdout.replace(/Screenshot captured as '([^']*)'/, (_, capt1: string) => {
+    if (capt1.length > 8) {
+      findArtifact(capt1);
     }
     return '';
   });
@@ -70,13 +86,13 @@ function ErrorView({ artifactPrefix, runMeta, error }: { artifactPrefix: string,
       </a>}
     </p>
     <pre>
-      {error.errorDetails || ""}
+      {errorDetails}
       <hr />
-      {error.errorStackTrace || ""}
+      {errorStackTrace}
       <hr />
-      {error.stderr || ""}
+      {stderr}
       <hr />
-      {error.stdout || ""}
+      {stdout}
     </pre>
   </div>
 }
