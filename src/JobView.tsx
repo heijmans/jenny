@@ -56,6 +56,8 @@ function ErrorView({ artifactPrefix, runMeta, error }: { artifactPrefix: string,
     const artifact = runMeta.artifacts.find(x => x.relativePath.endsWith(suffix));
     if (artifact) {
       artifactSrc = artifactPrefix + artifact?.relativePath;
+    } else {
+      console.log("artifact not found", suffix);
     }
   }
 
